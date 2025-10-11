@@ -1,0 +1,288 @@
+/* ----------------------------
+   BRAND TOKENS
+----------------------------- */
+:root {
+    --bs-primary: #7C3AED;           /* purple */
+    --bs-primary-rgb: 124, 58, 237;
+    --bs-secondary: #EC4899;         /* pink */
+    --bs-secondary-rgb: 236, 72, 153;
+  
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* ----------------------------
+     BASE
+  ----------------------------- */
+  body {
+    background: linear-gradient(180deg, #fdfbff 0%, #fff 100%);
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  }
+  
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-xl);
+  }
+  
+  /* Utility helpers */
+  .object-cover { object-fit: cover; }
+  .rounded-4 { border-radius: 1rem; }
+  .shadow-soft { box-shadow: 0 10px 30px rgba(0,0,0,.08); }
+  
+  /* ----------------------------
+     NAVBAR
+  ----------------------------- */
+  .navbar {
+    background: linear-gradient(90deg, var(--bs-primary) 0%, var(--bs-secondary) 100%);
+  }
+  .navbar-brand {
+    color: #fff !important;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+  .navbar-brand span { text-shadow: 0 0 4px rgba(255, 255, 255, 0.3); }
+  .navbar-nav .nav-link { color: rgba(255, 255, 255, 0.9); }
+  .navbar-nav .nav-link:hover { color: #fff; }
+  
+  /* Make the hamburger icon visible on gradient */
+  .navbar .navbar-toggler {
+    border-color: rgba(255,255,255,.4);
+  }
+  .navbar .navbar-toggler-icon {
+    filter: invert(1) brightness(2);
+  }
+  
+  /* ----------------------------
+     BUTTONS
+  ----------------------------- */
+  .btn-primary {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: 0 4px 14px rgba(var(--bs-primary-rgb), 0.25);
+  }
+  .btn-primary:hover {
+    background-color: #6D28D9;
+    border-color: #6D28D9;
+  }
+  
+  .btn-outline-primary {
+    color: var(--bs-primary);
+    border-color: var(--bs-primary);
+    border-radius: var(--radius-xl);
+  }
+  .btn-outline-primary:hover {
+    background-color: var(--bs-primary);
+    color: #fff;
+  }
+  
+  /* ----------------------------
+     PRODUCT CARDS
+  ----------------------------- */
+  .card {
+    border: none;
+    border-radius: var(--radius-2xl);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+  }
+  
+  .img-zoom-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+  }
+  .img-zoom-wrap > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .img-zoom-wrap:hover > img {
+    transform: scale(1.08);
+  }
+  
+  /* ----------------------------
+     HERO
+  ----------------------------- */
+  .hero-wrap {
+    background: linear-gradient(180deg, #ffffff 0%, #faf7ff 60%, #fff 100%);
+  }
+  .hero-badge {
+    background: rgba(var(--bs-primary-rgb), .12);
+    color: #3b2a8f;
+    border: 1px solid rgba(var(--bs-primary-rgb), .2);
+  }
+  
+  /* Subtle animated accents (optional decor) */
+  .accents {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .accent-dot {
+    position: absolute;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #EC4899, #7C3AED);
+    opacity: 0.15;
+    animation: float 6s ease-in-out infinite;
+  }
+  .accent-dot.a1 { top: 90px; left: 5%; animation-delay: .2s; }
+  .accent-dot.a2 { top: 220px; right: 6%; animation-delay: .9s; }
+  
+  .accent-line {
+    position: absolute;
+    width: 160px; height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(124,58,237,.4), transparent);
+    opacity: .5;
+    animation: shimmer 4.5s ease-in-out infinite;
+  }
+  .accent-line.l1 { top: 120px; left: 18%; transform: rotate(12deg); }
+  .accent-line.l2 { top: 280px; right: 22%; transform: rotate(-10deg); }
+  
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-8px); }
+  }
+  @keyframes shimmer {
+    0%,100% { opacity: .25; }
+    50%     { opacity: .7; }
+  }
+  
+  /* ----------------------------
+     FREE SHIPPING BANNER
+  ----------------------------- */
+  .free-ship {
+    background:
+      radial-gradient(1200px 300px at -10% -50%, rgba(255,255,255,0.25) 0, transparent 60%),
+      linear-gradient(90deg, #7C3AED 0%, #EC4899 100%);
+    box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+    position: relative;
+  }
+  .free-ship .sheen {
+    position: absolute;
+    top: 0; left: -30%;
+    width: 30%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+    transform: skewX(-20deg);
+    animation: sheen-move 3.5s linear infinite;
+  }
+  @keyframes sheen-move {
+    0%   { left: -30%; }
+    100% { left: 130%; }
+  }
+  
+  /* ----------------------------
+     ALERT (Add-to-cart toast)
+  ----------------------------- */
+  .alert-show { transform: translate(-50%, 0); opacity: 1; }
+  .alert-hide { transform: translate(-50%, -50px); opacity: 0; }
+  
+  /* ----------------------------
+     ABOUT AVATAR
+  ----------------------------- */
+  .about-avatar {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    background: #fff;
+    border: 4px solid rgba(124, 58, 237, 0.2);
+  }
+  
+  /* If you previously had a global `img { width:100% }`,
+     scope full-width behavior to product images only: */
+  .product-img { width: 100%; height: 100%; object-fit: cover; }
+  
+  /* ----------------------------
+     FOOTER
+  ----------------------------- */
+  footer {
+    background-color: #fdfbff;
+    border-top: 1px solid #eaeaea;
+    text-align: center;
+    padding: 2rem 0;
+    color: #6b7280;
+  }
+  /* ============================
+   ACCESSIBILITY: FOCUS RINGS
+============================ */
+:focus-visible {
+  outline: 3px solid rgba(var(--bs-secondary-rgb), 0.9);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.focus-ring {
+  box-shadow: 0 0 0 3px rgba(var(--bs-secondary-rgb), 0.35) !important;
+}
+
+/* ============================
+   DARK THEME (manual toggle)
+   Apply when <html data-theme="dark">
+============================ */
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+html[data-theme="dark"] body {
+  background: linear-gradient(180deg, #0f0b12 0%, #121018 100%);
+  color: #e9e7ee;
+}
+html[data-theme="dark"] .navbar {
+  background: linear-gradient(90deg, #5b2bbd 0%, #b63a82 100%);
+}
+html[data-theme="dark"] .navbar-nav .nav-link { color: rgba(255,255,255,.9); }
+html[data-theme="dark"] .navbar-brand { color: #fff !important; }
+
+html[data-theme="dark"] .card {
+  background: #1a1622;
+  color: #e9e7ee;
+  box-shadow: 0 8px 30px rgba(0,0,0,.5);
+}
+html[data-theme="dark"] .btn-primary {
+  background-color: #6d28d9;
+  border-color: #6d28d9;
+  box-shadow: 0 4px 14px rgba(109, 40, 217, 0.35);
+}
+html[data-theme="dark"] .btn-outline-primary {
+  color: #a78bfa;
+  border-color: #a78bfa;
+}
+html[data-theme="dark"] .btn-outline-primary:hover {
+  background-color: #a78bfa; color: #121018;
+}
+
+html[data-theme="dark"] .hero-wrap {
+  background: linear-gradient(180deg, #14101b 0%, #171324 60%, #14101b 100%);
+}
+html[data-theme="dark"] .free-ship {
+  box-shadow: 0 10px 25px rgba(109, 40, 217, 0.35);
+}
+html[data-theme="dark"] footer {
+  background-color: #14101b;
+  border-top-color: #262335;
+  color: #bfbad1;
+}
+
+/* Input fields readable in dark */
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select,
+html[data-theme="dark"] .form-check-input {
+  background-color: #201b2a;
+  color: #e9e7ee;
+  border-color: #3b3351;
+}
+html[data-theme="dark"] .form-control::placeholder { color: #9b94ad; }
+
+/* Bootstrap alert in dark */
+html[data-theme="dark"] .alert {
+  background-color: #221c2e;
+  color: #e9e7ee;
+  border: 1px solid #3b3351;
+}
