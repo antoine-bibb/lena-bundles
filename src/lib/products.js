@@ -2,7 +2,7 @@
 export const products = [
   {
     id: "1",
-    name: "Brazilian Body Wave",
+    name: "Straight",
     basePrice: 79.99,
     priceId: "price_XXXXX_BodyWave",
     origin: "Brazilian",
@@ -12,7 +12,7 @@ export const products = [
   },
   {
     id: "2",
-    name: "Peruvian Straight",
+    name: "wavy",
     basePrice: 74.0,
     priceId: "price_XXXXX_Straight",
     origin: "Peruvian",
@@ -22,7 +22,7 @@ export const products = [
   },
   {
     id: "3",
-    name: "Deep Curly Bundles",
+    name: "water_wave",
     basePrice: 85.0,
     priceId: "price_XXXXX_Curly",
     origin: "Malaysian",
