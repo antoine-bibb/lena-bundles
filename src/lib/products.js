@@ -1,7 +1,7 @@
 // src/lib/products.js
 export const products = [
   {
-    id: "straight",
+    id: "Premium Straight Bundle",
     name: "Premium Straight Bundle",
     origin: "Brazilian",
     texture: "Straight",
