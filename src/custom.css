@@ -286,3 +286,29 @@ html[data-theme="dark"] .free-ship{box-shadow:0 10px 25px rgba(109,40,217,.35)}
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
 }
+/* Contact page dark-mode fixes */
+html[data-theme="dark"] .page-contact .bg-white,
+html[data-theme="dark"] .page-contact .bg-light,
+html[data-theme="dark"] .page-contact .card.bg-white {
+  background-color: #1a1622 !important;   /* dark card */
+  color: #e9e7ee !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
+
+html[data-theme="dark"] .page-contact .form-control,
+html[data-theme="dark"] .page-contact .form-select,
+html[data-theme="dark"] .page-contact .form-check-input,
+html[data-theme="dark"] .page-contact textarea {
+  background-color: #201b2a !important;
+  color: #e9e7ee !important;
+  border-color: #3b3351 !important;
+}
+
+html[data-theme="dark"] .page-contact .form-control::placeholder,
+html[data-theme="dark"] .page-contact textarea::placeholder {
+  color: #9b94ad !important;
+}
+
+html[data-theme="dark"] .page-contact .text-muted {
+  color: #bfbad1 !important;
+}
