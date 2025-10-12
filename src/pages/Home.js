@@ -72,17 +72,17 @@ export default function Home() {
           <div className="carousel-inner">
             <div className="carousel-item active">
               <div className="ratio ratio-21x9">
-                <img src="/images/model-1.jpg" alt="Body Wave install" className="w-100 h-100 object-cover" />
+                <img src="/images/Model-1.jpg" alt="Body Wave install" className="w-100 h-100 object-cover" />
               </div>
             </div>
             <div className="carousel-item">
               <div className="ratio ratio-21x9">
-                <img src="/images/model-2.jpg" alt="Straight bundles" className="w-100 h-100 object-cover" />
+                <img src="/images/Model-2.jpg" alt="Straight bundles" className="w-100 h-100 object-cover" />
               </div>
             </div>
             <div className="carousel-item">
               <div className="ratio ratio-21x9">
-                <img src="/images/model-3.jpg" alt="Curly wig" className="w-100 h-100 object-cover" />
+                <img src="/images/Model-3.jpg" alt="Curly wig" className="w-100 h-100 object-cover" />
               </div>
             </div>
           </div>
