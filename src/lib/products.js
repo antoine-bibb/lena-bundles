@@ -10,8 +10,8 @@ export const products = [
       "Silky, bone-straight finish with natural luster. 100% virgin human hair—soft, tangle-resistant, and easy to style.",
     // length -> Stripe price ID (price_...)
     pricesByLength: {
-      12: "price_REPLACE_STRAIGHT_12",
-      14: "price_REPLACE_STRAIGHT_14",
+      12: "price_1SHGyWFt8RfBt8VucTcFUZG0",
+      14: "price_1SHH0QFt8RfBt8VupLUQIxeP",
       16: "price_REPLACE_STRAIGHT_16",
       18: "price_REPLACE_STRAIGHT_18",
       20: "price_REPLACE_STRAIGHT_20",
