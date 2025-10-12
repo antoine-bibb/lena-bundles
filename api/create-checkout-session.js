@@ -12,17 +12,25 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "No line items" });
     }
 
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items: items.map(i => ({
-        price: i.priceId,
-        quantity: Number(i.quantity || 1),
-      })),
-      success_url: `${process.env.SITE_URL}/success`,
-      cancel_url: `${process.env.SITE_URL}/cart`,
-      shipping_address_collection: { allowed_countries: ["US", "CA"] },
-      automatic_tax: { enabled: true }, // optional
-    });
+    // /api/create-checkout-session
+const session = await stripe.checkout.sessions.create({
+    mode: "payment",
+    success_url: `${origin}/success`,
+    cancel_url: `${origin}/cart`,
+    line_items: cart.map((item) => ({
+      // Build line item from your UI price map:
+      price_data: {
+        currency: "usd",
+        unit_amount: Math.round(item.uiPrice * 100), // dollars -> cents
+        product_data: {
+          name: `${item.name} — ${item.length}"`,    // shows inches in Checkout
+          images: item.image ? [new URL(item.image, origin).href] : [],
+          metadata: { length: String(item.length), productId: item.id },
+        },
+      },
+      quantity: item.qty,
+    })),
+  });
 
     return res.status(200).json({ url: session.url });
   } catch (err) {

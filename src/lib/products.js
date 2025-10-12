@@ -40,6 +40,7 @@ export const products = [
     },
     displayFrom: 80.0,
   },
+  
   {
     id: "water-wave",
     name: "Water Wave Bundle",

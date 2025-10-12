@@ -3,14 +3,36 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import logo from "../assets/logo.png";
-import { toggleTheme, getSavedTheme } from "../utils/theme";
+import { toggleTheme, getSavedTheme } from "../utils/theme"; // keep your helper
 
 export default function Navbar() {
   const { count } = useCart();
   const [mode, setMode] = useState(getSavedTheme()); // "light" | "dark" | "auto"
 
+  // Close navbar when clicking anywhere outside the opened collapse
   useEffect(() => {
-    // keep icon/state in sync with saved setting
+    const handleClickOutside = (e) => {
+      const navbarCollapse = document.getElementById("navMain");
+      const toggler = document.querySelector(".navbar-toggler");
+      if (!navbarCollapse || !toggler) return;
+
+      const isOpen = navbarCollapse.classList.contains("show");
+      const clickedInside =
+        navbarCollapse.contains(e.target) || toggler.contains(e.target);
+
+      if (isOpen && !clickedInside) {
+        // requires Bootstrap JS bundle to be loaded (see index.js)
+        const bsCollapse = window.bootstrap?.Collapse.getInstance(navbarCollapse);
+        if (bsCollapse) bsCollapse.hide();
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  // keep icon/state in sync with saved setting
+  useEffect(() => {
     setMode(getSavedTheme());
   }, []);
 
