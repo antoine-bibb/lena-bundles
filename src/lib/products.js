@@ -4,7 +4,7 @@ export const money = (centsOrDollars) =>
 
 export const products = [
   {
-    id: "straight",
+    id: "Straight",
     name: "Premium Straight Bundle",
     origin: "Brazilian",
     texture: "Straight",
