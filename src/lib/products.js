@@ -8,7 +8,7 @@ export const products = [
     name: "Premium Straight Bundle",
     origin: "Brazilian",
     texture: "Straight",
-    images: ["/images/wavy1.jpg"],
+    images: ["/images/straight1.jpg"],
     description:
       "Silky, bone-straight finish with natural luster. 100% virgin human hair—soft, tangle-resistant, and easy to style.",
     // length -> Stripe price ID
