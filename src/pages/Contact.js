@@ -15,8 +15,8 @@ export default function Contact() {
               </p>
 
               <div className="vstack gap-2 mt-3">
-                <div><strong>Email:</strong> support@lena-bundles.com</div>
-                <div><strong>Phone:</strong> (555) 123-4567</div>
+                <div><strong>Email:</strong> selenasimpson94@ymail.com</div>
+                <div><strong>Phone:</strong> (864) 625-4239</div>
                 <div><strong>Hours:</strong> Mon–Fri, 9am–6pm ET</div>
               </div>
             </div>
