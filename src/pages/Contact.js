@@ -15,8 +15,19 @@ export default function Contact() {
               </p>
 
               <div className="vstack gap-2 mt-3">
-                <div><strong>Email:</strong> selenasimpson94@ymail.com</div>
-                <div><strong>Phone:</strong> (864) 625-4239</div>
+              <div>
+  <strong>Email:</strong>{" "}
+  <a href="mailto:selenasimpson94@ymail.com" className="text-decoration-none text-primary">
+    selenasimpson94@ymail.com
+  </a>
+</div>
+
+<div>
+  <strong>Phone:</strong>{" "}
+  <a href="tel:+18646254239" className="text-decoration-none text-primary">
+    (864) 625-4239
+  </a>
+</div>
                 <div><strong>Hours:</strong> Mon–Fri, 9am–6pm ET</div>
               </div>
             </div>
@@ -24,6 +35,11 @@ export default function Contact() {
         </div>
 
         {/* Form card */}
+        <div className="col-12 col-lg-7">
+          <div className="card shadow-soft rounded-4">
+            <div className="card-body">
+              <h5 className="mb-3">Send us a message</h5>
+              {/* Form card */}
         <div className="col-12 col-lg-7">
           <div className="card shadow-soft rounded-4">
             <div className="card-body">
@@ -43,6 +59,9 @@ export default function Contact() {
                 </div>
                 <button type="submit" className="btn btn-primary">Send message</button>
               </form>
+            </div>
+          </div>
+        </div>
             </div>
           </div>
         </div>
