@@ -1,4 +1,7 @@
 // src/lib/products.js
+export const money = (centsOrDollars) =>
+  (centsOrDollars >= 100 ? `$${(centsOrDollars / 100).toFixed(2)}` : `$${Number(centsOrDollars).toFixed(2)}`);
+
 export const products = [
   {
     id: "straight",
@@ -8,7 +11,7 @@ export const products = [
     images: ["/images/straight1.jpg"],
     description:
       "Silky, bone-straight finish with natural luster. 100% virgin human hair—soft, tangle-resistant, and easy to style.",
-    // length -> Stripe price ID (price_...)
+    // length -> Stripe price ID
     pricesByLength: {
       12: "price_1SHGyWFt8RfBt8VucTcFUZG0",
       14: "price_1SHH0QFt8RfBt8VupLUQIxeP",
@@ -18,9 +21,19 @@ export const products = [
       22: "price_REPLACE_STRAIGHT_22",
       24: "price_REPLACE_STRAIGHT_24",
     },
-    // (optional) for showing a "From $" on cards:
+    // UI amounts in DOLLARS for display
+    uiPricesByLength: {
+      12: 79.99,
+      14: 89.99,
+      16: 99.99,
+      18: 109.99,
+      20: 119.99,
+      22: 129.99,
+      24: 139.99,
+    },
     displayFrom: 79.99,
   },
+
   {
     id: "wavy",
     name: "Luxe Wavy Bundle",
@@ -38,9 +51,18 @@ export const products = [
       22: "price_REPLACE_WAVY_22",
       24: "price_REPLACE_WAVY_24",
     },
-    displayFrom: 80.0,
+    uiPricesByLength: {
+      12: 74.99,
+      14: 84.99,
+      16: 94.99,
+      18: 104.99,
+      20: 114.99,
+      22: 124.99,
+      24: 134.99,
+    },
+    displayFrom: 74.99,
   },
-  
+
   {
     id: "water-wave",
     name: "Water Wave Bundle",
@@ -58,6 +80,15 @@ export const products = [
       22: "price_REPLACE_WATER_22",
       24: "price_REPLACE_WATER_24",
     },
-    displayFrom: 95.0,
+    uiPricesByLength: {
+      12: 85.99,
+      14: 95.99,
+      16: 105.99,
+      18: 115.99,
+      20: 125.99,
+      22: 135.99,
+      24: 145.99,
+    },
+    displayFrom: 85.99,
   },
 ];

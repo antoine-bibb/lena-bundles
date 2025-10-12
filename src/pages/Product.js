@@ -1,47 +1,64 @@
-// src/pages/Product.js (only the key parts)
-import React, { useMemo, useState } from "react";
+// src/pages/Product.js
+import React, { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { products as PRODUCT_LIST } from "../lib/products";
 import { useCart } from "../context/CartContext";
 
-// (Optional) display prices for UI; checkout will trust Stripe priceId
-const DISPLAY_PRICES = {
-  straight: { 12: 79.99, 14: 89.99, 16: 99.99, 18: 109.99, 20: 119.99, 22: 129.99, 24: 139.99 },
-  wavy:    { 12: 80.00, 14: 90.00, 16: 100.00, 18: 110.00, 20: 120.00, 22: 130.00, 24: 140.00 },
-  "water-wave": { 12: 85.00, 14: 95.00, 16: 105.00, 18: 115.00, 20: 125.00, 22: 135.00, 24: 145.00 },
-};
+const money = (n) => (Number.isFinite(n) ? `$${Number(n).toFixed(2)}` : "$—");
 
 export default function Product() {
   const { id } = useParams();
-  const product = useMemo(() => PRODUCT_LIST.find(p => p.id === id), [id]);
+
+  // Find the product from your catalog
+  const product = useMemo(() => PRODUCT_LIST.find((p) => p.id === id), [id]);
+
+  // Build lengths list from product (or empty array while unknown)
+  const lengths = useMemo(
+    () =>
+      Object.keys(product?.pricesByLength || {})
+        .map(Number)
+        .sort((a, b) => a - b),
+    [product]
+  );
+
+  // Keep selected length in state; initialize when lengths become available
+  const [length, setLength] = useState(0);
+  useEffect(() => {
+    if (lengths.length) setLength(lengths[0]);
+  }, [lengths]);
+
+  // Cart (must be unconditional)
   const { add } = useCart();
 
-  const lengths = useMemo(() => Object.keys(product?.pricesByLength || {}).map(Number).sort((a,b)=>a-b), [product]);
-  const [length, setLength] = useState(lengths[0]);
-  const uiPrice = DISPLAY_PRICES[product?.id]?.[length] ?? product?.displayFrom ?? 0;
+  // Compute price info (guards for missing product/length)
+  const priceId = product?.pricesByLength?.[length];
+  const uiPrice = product?.uiPricesByLength?.[length] ?? product?.displayFrom ?? 0;
+  const canBuy = !!priceId && !String(priceId).startsWith("price_REPLACE_");
 
-  function addToCart() {
-    const priceId = product?.pricesByLength?.[length];
-    if (!product || !priceId) {
-      alert("This length is not available yet. Please try another length.");
+  const addToCart = () => {
+    if (!product || !canBuy) {
+      alert("This length is not available yet. Please try another.");
       return;
     }
     add({
       id: `${product.id}_${length}`,
       name: `${product.name} — ${length}"`,
-      price: uiPrice,               // display only
-      priceId,                      // REQUIRED for Stripe
+      price: uiPrice,      // for display; Stripe will charge by priceId
+      priceId,             // REQUIRED for checkout
       qty: 1,
       image: product.images?.[0],
       length,
     });
     alert(`${product.name} ${length}" added to cart`);
-  }
+  };
 
+  // ---- Render ----
   if (!product) {
     return (
       <div className="container py-5">
-        <Link to="/shop" className="text-decoration-none text-secondary">← Back to shop</Link>
+        <Link to="/shop" className="text-decoration-none text-secondary">
+          ← Back to shop
+        </Link>
         <p className="mt-3">Product not found.</p>
       </div>
     );
@@ -49,30 +66,62 @@ export default function Product() {
 
   return (
     <div className="container py-5">
-      <Link to="/shop" className="text-decoration-none text-secondary">← Back to shop</Link>
+      <Link to="/shop" className="text-decoration-none text-secondary">
+        ← Back to shop
+      </Link>
 
       <div className="row g-5 mt-2">
+        {/* LEFT: Image */}
         <div className="col-md-6">
           <div className="ratio ratio-1x1">
-            <img src={product.images?.[0]} alt={product.name} className="w-100 h-100 object-cover" />
+            <img
+              src={product.images?.[0]}
+              alt={product.name}
+              className="w-100 h-100 object-cover rounded-4 shadow-soft"
+            />
           </div>
         </div>
 
+        {/* RIGHT: Info */}
         <div className="col-md-6">
           <h2 className="mb-1">{product.name}</h2>
-          <p className="text-muted mt-2">{product.origin} • {product.texture}</p>
+          <p className="text-muted mt-2">
+            {product.origin} • {product.texture}
+          </p>
 
           <div className="mt-3">
-            <label className="form-label">Length</label>
-            <select className="form-select" value={length} onChange={(e)=>setLength(Number(e.target.value))}>
-              {lengths.map(l => <option key={l} value={l}>{l}"</option>)}
+            <label className="form-label fw-semibold">Length</label>
+            <select
+              className="form-select"
+              value={length}
+              onChange={(e) => setLength(Number(e.target.value))}
+              disabled={!lengths.length}
+            >
+              {lengths.map((l) => {
+                const disabled = String(product.pricesByLength[l]).startsWith(
+                  "price_REPLACE_"
+                );
+                return (
+                  <option key={l} value={l} disabled={disabled}>
+                    {l}" {disabled ? "(coming soon)" : ""}
+                  </option>
+                );
+              })}
             </select>
           </div>
 
-          <div className="h4 mt-3">${uiPrice.toFixed(2)}</div>
-          <button className="btn btn-primary mt-2" onClick={addToCart}>Add to cart</button>
+          <div className="h4 mt-3">{money(uiPrice)}</div>
 
-          <p className="mt-3">{product.description}</p>
+          <button
+            className="btn btn-primary mt-2"
+            onClick={addToCart}
+            disabled={!canBuy}
+            title={!canBuy ? "Length not available yet" : "Add to cart"}
+          >
+            {canBuy ? "Add to cart" : "Unavailable"}
+          </button>
+
+          <p className="mt-4 text-muted">{product.description}</p>
         </div>
       </div>
     </div>
