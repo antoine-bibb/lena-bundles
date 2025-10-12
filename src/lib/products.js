@@ -4,11 +4,11 @@ export const money = (centsOrDollars) =>
 
 export const products = [
   {
-    id: "Straight",
+    id: "straight",
     name: "Premium Straight Bundle",
     origin: "Brazilian",
     texture: "Straight",
-    images: ["/lena-bundles/public/images/straight1.jpg"],
+    images: ["/images/straight1.jpg"],
     description:
       "Silky, bone-straight finish with natural luster. 100% virgin human hair—soft, tangle-resistant, and easy to style.",
     // length -> Stripe price ID
