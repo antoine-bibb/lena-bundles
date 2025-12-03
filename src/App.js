@@ -12,6 +12,7 @@ import Shop from "./pages/Shop";
 import { initTheme } from "./utils/theme";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
+import ThankYou from "./pages/ThankYou";
 initTheme();
 
 function Footer() {
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} /> 
         <Route path="/success" element={<Success />} />
 <Route path="/cancel" element={<Cancel />} />
+        <Route path="/thank-you" element={<ThankYou />} />
       </Routes>
       <Footer />
     </CartProvider>
