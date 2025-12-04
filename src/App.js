@@ -13,6 +13,8 @@ import { initTheme } from "./utils/theme";
 import Success from "./pages/Success";
 import Cancel from "./pages/Cancel";
 import ThankYou from "./pages/ThankYou";
+import Admin from "./pages/Admin";
+import AdminLogin from "./pages/AdminLogin";
 initTheme();
 
 function Footer() {
@@ -28,6 +30,8 @@ export default function App() {
     <CartProvider>
       <Navbar />
       <Routes>
+      <Route path="/admin-login" element={<AdminLogin />} />
+      <Route path="/admin" element={<Admin />} />
         <Route path="/" element={<Home />} />
         <Route path="/shop" element={<Shop />} />  
         <Route path="/product/:id" element={<Product />} />
