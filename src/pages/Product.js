@@ -4,7 +4,6 @@ import { useParams, Link } from "react-router-dom";
 import { products as PRODUCT_LIST } from "../lib/products";
 import { useCart } from "../context/CartContext";
 
-// UI prices only
 const DISPLAY_PRICES = {
   straight: { 12: 79.99, 14: 89.99, 16: 99.99, 18: 109.99, 20: 119.99, 22: 129.99, 24: 139.99 },
   wavy: { 12: 80, 14: 90, 16: 100, 18: 110, 20: 120, 22: 130, 24: 140 },
@@ -15,25 +14,33 @@ export default function Product() {
   const { id } = useParams();
   const { add } = useCart();
 
-  // MUST ALWAYS RUN FIRST — no conditions.
-  const product = useMemo(() => PRODUCT_LIST.find((p) => p.id === id), [id]);
+  // ❗ ALWAYS call hooks before conditionals
+  const product = useMemo(
+    () => PRODUCT_LIST.find((p) => p.id === id),
+    [id]
+  );
 
-  // SAFE: `lengths` will be an empty array if product is missing.
+  // lengths array computed safely even if product is undefined
   const lengths = useMemo(
-    () => Object.keys(product?.pricesByLength || {}).map(Number).sort((a, b) => a - b),
+    () =>
+      product
+        ? Object.keys(product.pricesByLength || {})
+            .map(Number)
+            .sort((a, b) => a - b)
+        : [],
     [product]
   );
 
-  // SAFE DEFAULT: If no lengths exist, fallback to first valid length.
-  const [length, setLength] = useState(lengths[0] || 12);
+  // if no product, default length is null
+  const [length, setLength] = useState(lengths[0] || null);
 
-  // SAFEST WAY — NEVER returns undefined
+  // calculate UI price
   const uiPrice =
-    DISPLAY_PRICES[product?.id]?.[length] ??
-    product?.displayFrom ??
-    0;
+    product && length
+      ? DISPLAY_PRICES[product.id]?.[length] ?? product.displayFrom ?? 0
+      : 0;
 
-  // AFTER ALL HOOKS ARE DECLARED — NOW we check for missing product
+  // ❗RETURN *AFTER* all hooks above
   if (!product) {
     return (
       <div className="container py-5">
@@ -47,7 +54,6 @@ export default function Product() {
 
   function addToCart() {
     const priceId = product.pricesByLength?.[length];
-
     if (!priceId) {
       alert(`This length (${length}") is not available.`);
       return;
@@ -97,15 +103,12 @@ export default function Product() {
               onChange={(e) => setLength(Number(e.target.value))}
             >
               {lengths.map((l) => (
-                <option key={l} value={l}>
-                  {l}"
-                </option>
+                <option key={l} value={l}>{l}"</option>
               ))}
             </select>
           </div>
 
           <div className="h4 mt-3">${uiPrice.toFixed(2)}</div>
-
           <button className="btn btn-primary mt-2" onClick={addToCart}>
             Add to cart
           </button>
